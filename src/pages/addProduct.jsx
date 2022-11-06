@@ -7,9 +7,13 @@ import useSingleProduct from "../hooks/useSingleProduct";
 const AddProduct = ({ modify }) => {
   const params = useParams();
   const navigate = useNavigate();
-  const product = useSingleProduct(params._id);
-
+  
+  useEffect(()=>{
+    const product = useSingleProduct(params._id);
+    reset({title: product?.title, price: product?.title, photoURL: product?.photoURL, manufacturer: product?.manufacturer})
+  })
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -49,7 +53,7 @@ const AddProduct = ({ modify }) => {
             <span className='label-text'>Product name</span>
           </label>
           <input
-            defaultValue={product?.title}
+           
             {...register("title", {
               required: "* Title is required",
             })}
@@ -66,7 +70,7 @@ const AddProduct = ({ modify }) => {
             <span className='label-text'>Price</span>
           </label>
           <input
-            defaultValue={product?.price}
+           
             {...register("price", {
               required: "* Price is required",
             })}
@@ -83,7 +87,7 @@ const AddProduct = ({ modify }) => {
             <span className='label-text'>Manufacturer</span>
           </label>
           <input
-            defaultValue={product?.manufacturer}
+          
             {...register("manufacturer", {
               required: "* Manufacturer is required",
             })}
@@ -103,7 +107,6 @@ const AddProduct = ({ modify }) => {
             <span className='label-text'>Photo URL</span>
           </label>
           <input
-            defaultValue={product?.photoURL}
             {...register("photoURL", {
               required: "* PhotoURL is recommended",
             })}
